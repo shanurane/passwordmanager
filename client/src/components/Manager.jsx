@@ -12,7 +12,7 @@ const Manager = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/items")
+      .get("https://passwordmanager-c127.onrender.com/items")
       .then((response) => setPasswordsArray(response.data))
       .catch((error) => console.error("Error fetching passwords:", error));
   }, []);
@@ -25,7 +25,7 @@ const Manager = () => {
   const savePassword = () => {
     if (form.site && form.username && form.password) {
       axios
-        .post("http://localhost:3000/items", form)
+        .post("https://passwordmanager-c127.onrender.com/items", form)
         .then((response) => {
           setPasswordsArray([...passwordsArray, response.data]);
           toast("Password Saved!", { theme: "dark" });
@@ -39,7 +39,7 @@ const Manager = () => {
   const deletePassword = (id) => {
     if (confirm("Do you really want to delete")) {
       axios
-        .delete(`http://localhost:3000/items/${id}`)
+        .delete(`https://passwordmanager-c127.onrender.com/items/${id}`)
         .then(() => {
           setPasswordsArray(passwordsArray.filter((item) => item._id !== id));
           toast("Password Deleted!", { theme: "dark" });
@@ -53,7 +53,7 @@ const Manager = () => {
     setForm(selectedPassword);
     if (id) {
       axios
-        .delete(`http://localhost:3000/items/${id}`)
+        .delete(`https://passwordmanager-c127.onrender.com/items/${id}`)
         .catch((error) => toast("Error Editing password!", { theme: "dark" }));
     }
     setPasswordsArray(passwordsArray.filter((item) => item._id !== id));
