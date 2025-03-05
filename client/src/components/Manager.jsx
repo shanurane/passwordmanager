@@ -9,6 +9,7 @@ const Manager = () => {
   const showRef = useRef();
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordsArray, setPasswordsArray] = useState([]);
+  const [toggle, setToggle] = useState(null);
 
   useEffect(() => {
     axios
@@ -63,6 +64,9 @@ const Manager = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleToggle = (id) => {
+    setToggle(toggle === id ? null : id);
+  };
   return (
     <div className="flex justify-center w-full">
       <ToastContainer theme="dark" />
@@ -109,43 +113,36 @@ const Manager = () => {
           <div className="text-white">No Passwords to show</div>
         )}
         {Array.isArray(passwordsArray) && passwordsArray.length > 0 && (
-          <table className="text-white w-full rounded-xl overflow-hidden">
-            <thead className="bg-blue-600">
-              <tr>
-                <th className="py-1 px-2">WebSite URL</th>
-                <th className="py-1 px-2">Username</th>
-                <th className="py-1 px-2">Password</th>
-                <th className="py-1 px-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {passwordsArray.map((item) => (
-                <tr key={item._id}>
-                  <td className="py-1 border px-2">
-                    <a href={item.site} target="_blank">
-                      {item.site}
-                    </a>
-                  </td>
-                  <td className="py-1 border px-2">{item.username}</td>
-                  <td className="py-1 border px-2">{item.password}</td>
-                  <td className="py-1 border px-2">
-                    <button
-                      onClick={() => editPassword(item._id)}
-                      className="border rounded-lg p-1"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => deletePassword(item._id)}
-                      className="border rounded-lg p-1"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div>
+            {passwordsArray.map((item) => (
+              <div
+                key={item._id}
+                className="border bg-white/20 flex rounded-lg m-2 justify-between"
+              >
+                <div className="w-1/2 p-2 flex flex-col text-start text-white">
+                  <span>
+                    <a href={item.site}>URL : {item.site}</a>
+                  </span>
+                  <span>Username : {item.username}</span>
+                  <span>Password : {item.password}</span>
+                </div>
+                <div className="w-[40%] p-3 flex flex-col gap-2">
+                  <button
+                    onClick={() => editPassword(item._id)}
+                    className="border rounded-lg p-1 hover:bg-white/25"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => deletePassword(item._id)}
+                    className="border rounded-lg p-1 hover:bg-white/25"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
