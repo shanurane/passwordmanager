@@ -7,7 +7,12 @@ const cors = require("cors");
 // dotenv.config();
 require("dotenv").config();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Allow all origins (for testing)
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 app.use(express.json());
 
 const MONGO_URI = process.env.MONGO_URI;
@@ -89,6 +94,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/authenticate", async (req, res) => {
+  console.log("pin accessed");
   res.json({ message: pin });
 });
 
