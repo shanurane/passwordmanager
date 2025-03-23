@@ -12,6 +12,7 @@ app.use(express.json());
 
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 3000;
+const pin = process.env.PIN;
 
 mongoose
   .connect(MONGO_URI, {
@@ -85,6 +86,10 @@ app.delete("/items/:id", async (req, res) => {
 
 app.get("/", (req, res) => {
   res.send("Server is running");
+});
+
+app.get("/authenticate", async (req, res) => {
+  res.json({ message: pin });
 });
 
 app.listen(PORT, () => {

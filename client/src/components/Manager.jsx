@@ -11,9 +11,11 @@ const Manager = () => {
   const [passwordsArray, setPasswordsArray] = useState([]);
   const [toggle, setToggle] = useState(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     axios
-      .get("https://passwordmanager-c127.onrender.com/items")
+      .get(`${apiUrl}/items`)
       .then((response) => setPasswordsArray(response.data))
       .catch((error) => console.error("Error fetching passwords:", error));
   }, []);
@@ -26,7 +28,7 @@ const Manager = () => {
   const savePassword = () => {
     if (form.site && form.username && form.password) {
       axios
-        .post("https://passwordmanager-c127.onrender.com/items", form)
+        .post(`${apiUrl}/items`, form)
         .then((response) => {
           setPasswordsArray([...passwordsArray, response.data]);
           toast("Password Saved!", { theme: "dark" });
@@ -40,7 +42,7 @@ const Manager = () => {
   const deletePassword = (id) => {
     if (confirm("Do you really want to delete")) {
       axios
-        .delete(`https://passwordmanager-c127.onrender.com/items/${id}`)
+        .delete(`${apiUrl}/items/${id}`)
         .then(() => {
           setPasswordsArray(passwordsArray.filter((item) => item._id !== id));
           toast("Password Deleted!", { theme: "dark" });
@@ -54,7 +56,7 @@ const Manager = () => {
     setForm(selectedPassword);
     if (id) {
       axios
-        .delete(`https://passwordmanager-c127.onrender.com/items/${id}`)
+        .delete(`${apiUrl}/items/${id}`)
         .catch((error) => toast("Error Editing password!", { theme: "dark" }));
     }
     setPasswordsArray(passwordsArray.filter((item) => item._id !== id));
