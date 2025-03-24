@@ -44,7 +44,7 @@ function App() {
             <Manager />
           ) : (
             <div className="min-h-screen flex flex-col gap-1 justify-center items-center">
-              <p>{pinError}</p>
+              <p className="text-red-600">{pinError}</p>
               <input
                 type="text"
                 placeholder="Enter PIN"
