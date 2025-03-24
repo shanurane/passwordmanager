@@ -48,7 +48,7 @@ function App() {
               <input
                 type="text"
                 placeholder="Enter PIN"
-                className="sm:w-[40%] w-full border border-blue-600 rounded-full px-3 py-1 my-2"
+                className="sm:w-[40%] w-1/2 border border-blue-600 rounded-full px-3 py-1 my-2"
                 value={pin}
                 onChange={(e) => {
                   setPin(e.target.value);
