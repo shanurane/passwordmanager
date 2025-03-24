@@ -3,13 +3,14 @@ import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { FaEye, FaEyeSlash, FaEdit, FaTrash } from "react-icons/fa";
 
 const Manager = () => {
   const ref = useRef();
   const showRef = useRef();
   const [form, setForm] = useState({ site: "", username: "", password: "" });
   const [passwordsArray, setPasswordsArray] = useState([]);
-  const [toggle, setToggle] = useState(null);
+  const [toggle, setToggle] = useState(false);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -77,7 +78,7 @@ const Manager = () => {
           <span className="text-blue-600">&lt;PassMan/&gt;</span>
         </div>
         <div className="text-white">Password Manager</div>
-        <div className="flex flex-col w-full items-center">
+        <div className="flex flex-col w-full items-center p-3">
           <input
             type="text"
             value={form.site}
@@ -126,20 +127,36 @@ const Manager = () => {
                     <a href={item.site}>URL : {item.site}</a>
                   </span>
                   <span>Username : {item.username}</span>
-                  <span>Password : {item.password}</span>
+                  <div className="flex gap-4">
+                    {
+                      <span>
+                        Password :{" "}
+                        {toggle === item._id ? item.password : "*****"}
+                      </span>
+                    }
+                    <button onClick={() => handleToggle(item._id)}>
+                      {toggle === item._id ? (
+                        <FaEyeSlash className="text-red-500" />
+                      ) : (
+                        <FaEye className="text-green-500" />
+                      )}
+                    </button>
+                  </div>
                 </div>
-                <div className="w-[40%] p-3 flex flex-col gap-2">
+                <div className="w-auto p-3 flex flex-col gap-2">
                   <button
                     onClick={() => editPassword(item._id)}
-                    className="border rounded-lg p-1 hover:bg-white/25"
+                    className="flex justify-center items-center gap-3  px-8 sm:px-auto border rounded-lg p-1 hover:bg-white/25 text-blue-600"
                   >
-                    Edit
+                    <FaEdit className="text-blue-600" />
+                    <span className="hidden sm:block">Edit</span>
                   </button>
                   <button
                     onClick={() => deletePassword(item._id)}
-                    className="border rounded-lg p-1 hover:bg-white/25"
+                    className="flex justify-center items-center gap-3 px-8 sm:px-auto border rounded-lg p-1 hover:bg-white/25 text-red-600"
                   >
-                    Delete
+                    <FaTrash className="text-red-600" />
+                    <span className="hidden sm:block">Delete</span>
                   </button>
                 </div>
               </div>
