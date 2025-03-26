@@ -17,7 +17,9 @@ const Manager = () => {
   useEffect(() => {
     axios
       .get(`${apiUrl}/items`)
-      .then((response) => setPasswordsArray(response.data))
+      .then((response) => {
+        setPasswordsArray(response.data);
+      })
       .catch((error) => console.error("Error fetching passwords:", error));
   }, []);
 
@@ -85,7 +87,7 @@ const Manager = () => {
             onChange={handleChange}
             name="site"
             placeholder="Enter Website URL"
-            className="w-full border border-blue-600 rounded-full px-3 py-1 my-2"
+            className="w-full text-white border border-white bg-white/20 rounded-full px-3 py-1 my-2"
           />
           <input
             type="text"
@@ -93,20 +95,20 @@ const Manager = () => {
             onChange={handleChange}
             name="username"
             placeholder="Enter Username"
-            className="w-full border border-blue-600 rounded-full px-3 py-1 my-2"
+            className="w-full text-white border border-white bg-white/20 rounded-full px-3 py-1 my-2"
           />
           <input
-            type="password"
+            type="text"
             ref={showRef}
             value={form.password}
             onChange={handleChange}
             name="password"
             placeholder="Enter Password"
-            className="w-full border border-blue-600 rounded-full px-3 py-1 my-2"
+            className="w-full text-white border border-white bg-white/20 rounded-full px-3 py-1 my-2"
           />
           <button
             onClick={savePassword}
-            className="bg-violet-100 hover:bg-violet-200 rounded-full px-3 py-1 border border-violet-700 my-3"
+            className="bg-zinc-500 hover:bg-zinc-400 rounded-full px-3 py-1 border border-white my-3"
           >
             Add Data
           </button>
